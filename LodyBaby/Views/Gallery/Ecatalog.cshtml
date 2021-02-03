@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@(Html.Raw(ViewBag.Title))</title>
+    <meta name="keywords" content="@(Html.Raw(ViewBag.Keywords))" />
+    <meta name="description" content="@(Html.Raw(ViewBag.Description))" />
+    <link rel="apple-touch-icon" sizes="180x180" href="@Url.Content("images/favicon/apple-touch-icon.png")">
+    <link rel="icon" type="image/png" href="@Url.Content("~/Content/images/logo/favicon.ico")" sizes="16x16">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+    <link href="~/Content/catalog/css/flipbook.style.css" rel="stylesheet" />
+    <link href="~/Content/catalog/css/font-awesome.css" rel="stylesheet" />
+    <script src="~/Content/catalog/js/flipbook.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+     $("#container").flipBook({
+    pages : [
+    @foreach (var image in (IEnumerable<string>)ViewBag.Images)
+    {
+        <text>
+        { src: "@image", thumb: "@image" },
+        </text>
+
+    }
+   ],
+           viewMode: '3d'
+                });
+
+            })
+    </script>
+</head>
+<body>
+    <div id="container" />
+</body>
+</html>

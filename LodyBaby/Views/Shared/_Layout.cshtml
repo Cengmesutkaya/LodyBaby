@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>@(Html.Raw(ViewBag.Title))</title>
+    <meta name="keywords" content="lody baby, bebek bezi, lody fabrikası, bebek bezi fabrikası, mardin bebek bezi, lody bebek bezi" />
+    <meta name="description" content="2012 yılından beri Mardin'de kurulan Lody Baby, üretim ve dağıtım alanında  pek çok ilke imza atmıştır.">
+    <meta name="robots" content="index,follow">
+    <meta name="robots" content="all">
+    <meta name="Distribution" content="Global">
+    <meta name="Rating" content="General">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/images/favicon.png" />
+    <link rel="stylesheet" href="~/Content/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/Content/css/font-awesome.css" />
+    <link rel="stylesheet" href="~/Content/css/flaticon.css" />
+    <link rel="stylesheet" href="~/Content/css/slick.css">
+    <link rel="stylesheet" href="~/Content/css/slick-theme.css" />
+    <link rel="stylesheet" href="~/Content/css/magnific-popup.css" />
+    <link rel="stylesheet" href="~/Content/css/royal-preload.css" />
+    <!-- REVOLUTION SLIDER CSS -->
+    <link rel="stylesheet" type="text/css" href="~/Content/plugins/revolution/revolution/css/settings.css">
+    <!-- REVOLUTION NAVIGATION STYLE -->
+    <link rel="stylesheet" type="text/css" href="~/Content/plugins/revolution/revolution/css/navigation.css">
+    <link rel="stylesheet" href="~/Content/css/style.css" />
+</head>
+<body class="royal_preloader">
+    <div id="page" class="site">
+        @Html.Partial("_Header")
+
+        @RenderBody()
+
+        @Html.Partial("_Footer")
+
+    </div>
+    <a id="back-to-top" href="#" class="show"><i class="flaticon-arrow-pointing-to-up"></i></a>
+    <script src="~/Content/js/jquery.min.js"></script>
+    <script src="~/Content/js/slick.min.js"></script>
+    <script src="~/Content/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/Content/js/jquery.isotope.min.js"></script>
+    <script src="~/Content/js/easypiechart.js"></script>
+    <script src="~/Content/js/particles.min.js"></script>
+    <script src="~/Content/js/jquery.countdown.min.js"></script>
+    <script src="~/Content/js/scripts.js"></script>
+    <script src="~/Content/js/header-mobile.js"></script>
+    <script src="~/Content/js/royal_preloader.min.js"></script>
+    <!-- REVOLUTION JS FILES -->
+    <script src="~/Content/plugins/revolution/revolution/js/jquery.themepunch.tools.min.js"></script>
+    <script src="~/Content/plugins/revolution/revolution/js/jquery.themepunch.revolution.min.js"></script>
+    <!-- SLIDER REVOLUTION 5.0 EXTENSIONS  (Load Extensions only on Local File Systems !  The following part can be removed on Server for On Demand Loading) -->
+    <script src="~/Content/plugins/revolution/revolution/js/extensions/revolution-plugin.js"></script>
+    <script src="~/Content/js/rev-script-3.js"></script>
+
+</body>
+</html>
+<script type="text/javascript">window.jQuery = window.$ = jQuery;
+    (function($) { "use strict";
+        //Preloader
+        Royal_Preloader.config({
+            mode           : 'logo',
+            logo           : '/Content/images/company/lody-baby-kurumsal-logo.png',
+            logo_size      : [160, 75],
+            showProgress   : true,
+            showPercentage : true,
+            text_colour: '#000000',
+            background:  '#ffffff'
+        });
+    })(jQuery);</script> 

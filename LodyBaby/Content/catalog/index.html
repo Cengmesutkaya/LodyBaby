@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Catalog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/flipbook.style.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+
+    <script src="js/flipbook.min.js"></script>
+
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#container").flipBook({
+            pages:[
+                {src:"images/book2/1.jpg", thumb:"images/book2/1.jpg", title:""},
+                {src:"images/book2/2.jpg", thumb:"images/book2/2.jpg", title:""},
+                {src:"images/book2/3.jpg", thumb:"images/book2/3.jpg", title:""},
+                {src:"images/book2/4.jpg", thumb:"images/book2/4.jpg", title:""},
+ {src:"images/book2/5.jpg", thumb:"images/book2/5.jpg", title:""},
+                {src:"images/book2/6.jpg", thumb:"images/book2/6.jpg", title:""}
+            ],
+            viewMode:'3d'
+        });
+
+    })
+    </script>
+</head>
+<body>
+    <div id="container" />
+</body>
+</html>
