@@ -488,6 +488,7 @@
     <Content Include="Views\Gallery\Ecatalog.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="Views\HumanResources\Index.cshtml" />
+    <Content Include="Views\Blog\Detail.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -13,5 +13,11 @@ namespace LodyBaby.Controllers
             ViewBag.Title = "Lody Baby | Blog";
             return View();
         }
+
+        public ActionResult Detail()
+        {
+            ViewBag.Title = "Lody Baby | Blog";
+            return View();
+        }
     }
 }
