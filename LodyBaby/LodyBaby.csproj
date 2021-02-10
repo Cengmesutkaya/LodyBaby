@@ -140,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Areas\AreasAreaRegistration.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\CorporateController.cs" />
@@ -433,6 +434,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Areas\Controllers\" />
+    <Folder Include="Areas\Areas\Models\" />
+    <Folder Include="Areas\Areas\Views\Shared\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -464,6 +468,7 @@
     <Content Include="Content\catalog\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\catalog\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\catalog\fonts\FontAwesome.otf" />
+    <Content Include="Areas\Areas\Views\web.config" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
