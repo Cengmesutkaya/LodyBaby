@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="Mesut Kaya | mesutkaya2000@gmail.com" />
+    <title> Sümer Gıda | Admin Panel</title>
+    <meta name="keywords" content="@(Html.Raw(ViewBag.Keywords))" />
+    <meta name="description" content="@(Html.Raw(ViewBag.Description))" />
+    <link rel="icon" href="@Url.Content("~/Areas/Admin/Content/assets/images/favicon.ico")" type="image/x-icon" )">
+    <link rel="stylesheet" href="@Url.Content("~/Areas/Admin/Content/assets/plugins/notifications/css/lobibox.min.css")" />
+    <link href="@Url.Content("~/Areas/Admin/Content/assets/plugins/simplebar/css/simplebar.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Areas/Admin/Content/assets/css/bootstrap.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Areas/Admin/Content/assets/css/animate.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Areas/Admin/Content/assets/css/icons.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Areas/Admin/Content/assets/css/sidebar-menu.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Areas/Admin/Content/assets/css/app-style.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Areas/Admin/Content/assets/plugins/summernote/dist/summernote-bs4.css")" rel="stylesheet" />
+</head>
+<body>
+     <div id="wrapper" class="in">
+        @Html.Partial("_Navbar")
+        @Html.Partial("_TopBar")
+        <div class="clearfix"></div>
+        <div class="content-wrapper">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+        <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+        @Html.Partial("_Footer")
+    </div>
+    <div class="jvectormap-tip"></div><div class="lobibox-notify-wrapper top right"></div>
+    <script src="@Url.Content("~/Areas/Admin/Content/assets/js/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Areas/Admin/Content/assets/js/popper.min.js")"></script>
+    <script src="@Url.Content("~/Areas/Admin/Content/assets/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Areas/Admin/Content/assets/plugins/simplebar/js/simplebar.js")"></script>
+    <script src="@Url.Content("~/Areas/Admin/Content/assets/js/waves.js")"></script>
+    <script src="@Url.Content("~/Areas/Admin/Content/assets/js/sidebar-menu.js")"></script>
+    <script src="@Url.Content("~/Areas/Admin/Content/assets/js/app-script.js")"></script>
+    <script src="@Url.Content("~/Areas/Admin/Content/assets/plugins/sparkline-charts/jquery.sparkline.min.js")"></script>
+    <script src="@Url.Content("~/Areas/Admin/Content/assets/plugins/Chart.js/Chart.min.js")"></script>
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

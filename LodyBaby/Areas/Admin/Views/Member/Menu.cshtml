@@ -1,0 +1,77 @@
+﻿
+@model IEnumerable<Package_Ecommerce.DataEntities.Models.Member>
+
+<div class="row mt-4">
+    <div class="col-12 col-lg-6 col-xl-3">
+        <div class="card bg-dark">
+            <div class="card-body">
+                <div class="media">
+                    <a href="@Url.Action("Create","Member")">
+                        <div class="media-body text-left">
+                            <h4 class="text-white">
+                                Üye Ekle
+                            </h4>
+                            <span class="text-white">Üye eklemek için tıklayınız...</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6 col-xl-3">
+        <div class="card bg-dark">
+            <div class="card-body">
+                <div class="media">
+                    <a href="@Url.Action("Index","Member")">
+                        <div class="media-body text-left">
+                            <h4 class="text-white">
+                                @if (Model != null)
+                                {
+                                    @Model.Where(m => m.IsActive == true).Count()
+                                }
+                            </h4>
+                            <span class="text-white"> Aktif Üye Sayısı</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6 col-xl-3">
+        <div class="card bg-dark">
+            <div class="card-body">
+                <div class="media">
+                    <a href="@Url.Action("Passive","Member")">
+                        <div class="media-body text-left">
+                            <h4 class="text-white">
+                                @if (Model != null)
+                                {
+                                    @Model.Where(m => m.IsActive == false).Count()
+                                }
+                            </h4>
+                            <span class="text-white"> Pasif Üye Sayısı</span>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6 col-xl-3">
+        <div class="card bg-dark">
+            <div class="card-body">
+                <div class="media">
+                    <div class="media-body text-left">
+                        <h4 class="text-white">
+                            @if (Model != null)
+                            {
+                                @Model.Count()
+                            }
+                        </h4>
+                        <span class="text-white"> Tüm Üyelerin Sayısı</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--End Row-->

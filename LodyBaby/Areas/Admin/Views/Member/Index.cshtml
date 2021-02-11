@@ -1,0 +1,135 @@
+﻿@model IEnumerable<Package_Ecommerce.DataEntities.Models.Member>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<script src="@Url.Content("~/Areas/Admin/Content/assets/js/jquery.min.js")"></script>
+<link href="@Url.Content("~/Areas/Admin/Content/assets/plugins/bootstrap-datatable/css/dataTables.bootstrap4.min.css")" rel="stylesheet" />
+
+<div class="col-12 col-lg-12 col-xl-12">
+
+    @Html.Action("Menu", "Member")
+    <div class="card">
+        <br />
+        <div class="body">
+            <div class="table-responsive">
+                <table id="example" class="table table-bordered" cellspacing="0" style="width:100%;">
+                    <thead>
+                        <tr class="btn-dark">
+                            <th>Müşteri-Adı</th>
+                            <th>Müşteri-Kodu</th>
+                            <th>Telefonu</th>
+                            <th>E-Postası</th>
+                            <th>Aktif mi?</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td style="text-transform:capitalize">
+                                    @item.Name
+                                </td>
+                                <td style="text-transform:capitalize">
+                                    @item.Surname
+                                </td>
+                                <td>
+                                    @item.Phone
+                                </td>
+
+                                <td>
+                                    @item.Email
+                                </td>
+                                @if (item.IsActive == true)
+                                {
+                                    <td>
+                                        <img src="@Url.Content("~/Content/images/icons/yes.png")" style="width:15px;height:15px;margin-left:10px;" />
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <img src="@Url.Content("~/Content/images/icons/no.png")" style="width:15px;height:15px;margin-left:10px;" />
+                                    </td>
+                                }
+                                <td>
+
+
+                                    <a class="btn btn-gradient-forest" style="color:white" data-toggle="tooltip" data-placement="top" title="Düzenle" data-original-title="Düzenle" href="@Url.Action("Edit", "Member" , new {id=item.Id })">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+
+                                    @if (item.IsActive != true)
+                                    {
+                                        <a class="btn btn-success waves-effect" data-toggle="tooltip" data-placement="top" title="Aktif Yap" data-original-title="Aktif Yap" href="@Url.Action("ActiveOrPassive", "Member" , new {id=item.Guid })">
+                                            <i class="fa fa-thumbs-o-up"></i>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-danger waves-effect" data-toggle="tooltip" data-placement="top" title="Pasif Yap" data-original-title="Pasif Yap" href="@Url.Action("ActiveOrPassive", "Member" , new {id=item.Guid })">
+                                            <i class="fa fa-thumbs-o-down"></i>
+                                        </a>
+                                    }
+
+                                    <a class="btn btn-gradient-redmist waves-effect waves-light m-1" href="#" data-target="#deleteFirma" onclick="JavasGonder(@item.Id)" style="color:white" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sil">
+                                        <i class="fa fa fa-trash-o" style="color:white"></i>
+                                    </a>
+                                    <script type="text/javascript">
+                                        function JavasGonder(id) {
+                                            var link = "/Member/Delete/" + id;
+                                            jQuery("#modalLink").attr("href", link);
+                                            jQuery("#deleteFirma").modal()
+                                        }
+                                    </script>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Areas/Admin/Content/assets/plugins/bootstrap-datatable/js/jquery.dataTables.min.js")"></script>
+<script src="@Url.Content("~/Areas/Admin/Content/assets/plugins/bootstrap-datatable/js/dataTables.bootstrap4.min.js")"></script>
+<script src="@Url.Content("~/Areas/Admin/Content/assets/plugins/bootstrap-datatable/js/dataTables.buttons.min.js")"></script>
+<script src="@Url.Content("~/Areas/Admin/Content/assets/plugins/bootstrap-datatable/js/buttons.bootstrap4.min.js")"></script>
+<script type="text/javascript">
+    var jQueryCalis = $.noConflict(true);
+    (function ($) {
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "lengthMenu": [[500, 1000, -1], [500, 1000, "Tümü"]],
+                "ordering": true,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Turkish.json"
+                }
+            });
+            var table = $('#example').DataTable();
+            $('#example').show();
+        });
+    })(jQueryCalis);
+</script>
+
+<div class="modal fade" id="deleteFirma" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="top: 50px;">
+            <div class="modal-header modal-header-success btn-gradient-redmist" style="color: white !important;text-align: center;
+        font-size: 30px;">
+                <h6 style="color:white"><i class="icon-close"></i> Üye Silme Ekranı </h6>
+            </div>
+            <div class="modal-body">
+                <h6>Bu üyeyi silmek istediğinize emin misiniz?</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="margin-right:10px;" class="btn btn-primary pull-right" data-dismiss="modal"> <i class="fa fa fa-power-off" style="color:white"></i> Kapat</button>
+                <a class="btn btn-danger" id="modalLink">  <i class="fa fa fa-trash-o" style="color:white !important"></i> Sil</a>
+            </div>
+        </div>
+    </div>
+</div>

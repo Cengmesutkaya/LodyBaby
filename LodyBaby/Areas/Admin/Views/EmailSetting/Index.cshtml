@@ -1,0 +1,130 @@
+﻿@model Package_Ecommerce.DataEntities.Models.Email
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="col-12 col-lg-12 col-xl-12">
+    <div class="row mt-4">
+        <div class="col-12 col-lg-6 col-xl-3">
+            <div class="card gradient-redmist">
+                <div class="card-body">
+                    <div class="media">
+                        <a>
+                            <div class="media-body text-left">
+                                <h4 class="text-white">
+                                    Email Ayarı
+                                </h4>
+                                <span class="text-white">Email Ayarlama Ekranı</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-3">
+            <div class="card gradient-army">
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body text-left">
+                            <h4 class="text-white">
+                                1
+                            </h4>
+                            <span class="text-white">Aktif Email Sayısı</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-3">
+            <div class="card gradient-ibiza">
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body text-left">
+                            <h4 class="text-white">
+                                0
+                            </h4>
+                            <span class="text-white"> Pasif Email Sayısı</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-3">
+            <div class="card gradient-forest">
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body text-left">
+                            <h4 class="text-white">
+                                1
+                            </h4>
+                            <span class="text-white"> Tüm Emaillerin Sayısı</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--End Row-->
+
+    <div class="card">
+        <br />
+        <div class="body">
+            <div class="table-responsive">
+                <table id="example" class="table table-bordered" cellspacing="0" style="width:100%;">
+                    <thead>
+                        <tr class="btn-dark">
+                            <th>Smtp Client</th>
+                            <th>Host</th>
+                            <th>Port</th>
+                            <th>Password</th>
+                            <th>CC EMail </th>
+                            <th>Enable Ssl</th>
+                            <th>Transactions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Model.SmtpClient
+                            </td>
+                            <td>
+                                @Model.Host
+                            </td>
+                            <td>
+                                @Model.Port
+                            </td>
+                            <td>
+                                @Model.Password
+                            </td>
+                            <td>
+                                @Model.CCEmailOne
+                            </td>
+                            @if (Model.EnableSsl == true)
+                            {
+                                <td>
+                                    <img src="@Url.Content("~/Content/images/icons/yes.png")" style="width:15px;height:15px;margin-left:10px;" />
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <img src="@Url.Content("~/Content/images/icons/no.png")" style="width:15px;height:15px;margin-left:10px;" />
+                                </td>
+                            }
+                            <td>
+
+                                <a class="btn btn-gradient-forest" style="color:white" data-toggle="tooltip" data-placement="top" title="Düzenle" data-original-title="Düzenle" href="@Url.Action("Edit", "EmailSetting" , new {id=Model.Id })">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

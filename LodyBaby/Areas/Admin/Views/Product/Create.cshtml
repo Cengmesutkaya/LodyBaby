@@ -1,0 +1,136 @@
+﻿@model Package_Ecommerce.DataEntities.Models.Product
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            @using (Html.BeginForm("Create", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+            <div class="card-body">
+                @if (ViewBag.Error != null)
+    {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+}
+                <div class="form-group row">
+                    <label for="basic-input" class="col-sm-4 col-form-label">Birinci Resim</label>
+                    <div class="col-sm-10">
+                        <input type="file" id="imageOne" name="imageOne" accept=".jpg,.JPG,.PNG,.png,.jpeg,.JPEG" required="required" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="basic-input" class="col-sm-4 col-form-label">İkinci Resim</label>
+                    <div class="col-sm-10">
+                        <input type="file" id="imageTwo" name="imageTwo" accept=".jpg,.JPG,.PNG,.png,.jpeg,.JPEG" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="basic-input" class="col-sm-4 col-form-label">Ürün Kodu</label>
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.ProductCode, new { htmlAttributes = new { @class = "form-control", @maxlength = "150", @required = "required" } })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="basic-input" class="col-sm-4 col-form-label">Ürün Adı</label>
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @maxlength = "150", @required = "required" } })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="basic-input" class="col-sm-4 col-form-label">Kategori Seçiniz</label>
+                    <div class="col-sm-10">
+                        @Html.DropDownListFor(model => model.CategoryId, (SelectList)ViewBag.Category, new { @class = "form-control", @name = "DropValue" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="basic-input" class="col-sm-4 col-form-label">Fiyat</label>
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.Price, new { @class = "form-control numeric" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="basic-input" class="col-sm-4 col-form-label">İndirimli Fiyat</label>
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(model => model.Discount, new { @class = "form-control numeric" })
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="basic-input" class="col-sm-4 col-form-label">Stok Miktarı</label>
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control", @type = "number", @required = "required" } })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="basic-input" class="col-sm-4 col-form-label">Minimum Stok Miktarı</label>
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.MinValue, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="basic-input" class="col-sm-4 col-form-label">Ebat - Kısa Açıklama</label>
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.Summary, new { htmlAttributes = new { @class = "form-control", @maxlength = "150", @required = "required" } })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="basic-input" class="col-sm-4 col-form-label">Tags</label>
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.Tags, new { htmlAttributes = new { @class = "form-control", @maxlength = "250", @required = "required" } })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="basic-input" class="col-sm-4 col-form-label">Vitrin mi?</label>
+                    <div class="col-sm-10">
+                        <div class="icheck-material-primary">
+                            <input type="checkbox" id="checkbox" name="checkbox" checked="checked">
+                            <label for="checkbox"></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="basic-input" class="col-sm-4 col-form-label">Ürün Açıklaması</label>
+                    <div class="col-sm-12">
+                        @Html.TextAreaFor(model => model.Description, new { @id = "summernoteEditorI", @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="basic-input" class="col-sm-4 col-form-label">Ürün Özellikleri</label>
+                    <div class="col-sm-12">
+                        @Html.TextAreaFor(model => model.PropertyProduct, new { @id = "summernoteEditorII", @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <button type="submit" class="btn btn-success form-control"><i class="fa fa-check-square-o"></i>Değişiklikleri Kaydet</button>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script src="@Url.Content("~/Areas/Admin/Content/assets/plugins/summernote/dist/summernote-bs4.min.js")"></script>
+
+    <script>
+        $('#summernoteEditorI').summernote({
+            height: 400,
+            tabsize: 2
+        });
+    </script>
+
+    <script>
+        $('#summernoteEditorII').summernote({
+            height: 400,
+            tabsize: 2
+        });
+    </script>
+}

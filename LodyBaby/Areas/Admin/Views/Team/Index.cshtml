@@ -1,0 +1,233 @@
+﻿@model IEnumerable<Package_Ecommerce.DataEntities.Models.Team>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<script src="@Url.Content("~/Areas/Admin/Content/assets/js/jquery.min.js")"></script>
+<link href="@Url.Content("~/Areas/Admin/Content/assets/plugins/bootstrap-datatable/css/dataTables.bootstrap4.min.css")" rel="stylesheet" />
+
+<div class="col-12 col-lg-12 col-xl-12">
+    <div class="row mt-4">
+        <div class="col-12 col-lg-6 col-xl-3">
+            <div class="card bg-dark">
+                <div class="card-body">
+                    <div class="media">
+                        <a href="/team-create">
+                            <div class="media-body text-left">
+                                <h4 class="text-white">
+                                    Admin Ekle
+                                </h4>
+                                <span class="text-white"> Admin Eklemek için Tıklayın...</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-3">
+            <div class="card bg-dark">
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body text-left">
+                            <h4 class="text-white">
+                                @if (Model != null)
+                                {
+                                    @Model.Where(m => m.IsActive == true).Count()
+                                }
+                            </h4>
+                            <span class="text-white"> Aktif Admin Sayısı</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-3">
+            <div class="card bg-dark">
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body text-left">
+                            <h4 class="text-white">
+                                @if (Model != null)
+                                {
+                                    @Model.Where(m => m.IsActive == false).Count()
+                                }
+                            </h4>
+                            <span class="text-white"> Pasif Admin Sayısı</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-3">
+            <div class="card bg-dark">
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body text-left">
+                            <h4 class="text-white">
+                                @if (Model != null)
+                                {
+                                    @Model.Count()
+                                }
+                            </h4>
+                            <span class="text-white"> Tüm Adminlerin Sayısı</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--End Row-->
+
+    <div class="card">
+        <br />
+        <div class="body">
+            <div class="table-responsive">
+                <table id="example" class="table table-bordered" cellspacing="0" style="width:100%;">
+                    <thead>
+                        <tr class="btn-dark">
+                            <th>Image</th>
+                            <th>Name Surname</th>
+                            <th>About</th>
+                            <th>Email</th>
+                            <th>Is Active</th>
+                            <th>Transactions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                @if (item.Image != null)
+                                {
+                                    <td>
+                                        <img src="@item.Image" width="100" heigth="50" style="float:left; border-radius:10%; vertical-align: middle; margin-right: 10px;">
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <img src="@Url.Content("~/images/users/user.png")" width="100" heigth="50" style="float:left">
+                                    </td>
+                                }
+                                <td>
+                                    @item.NameSurname
+                                </td>
+                                @if (item.About != null)
+                                {
+
+                                    if (item.About.Length > 30)
+                                    {
+                                        <td>
+                                            @item.About.Substring(0, 30) [...]
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @item.About
+                                        </td>
+                                    }
+
+                                }
+
+                                else
+                                {
+                                    <td></td>
+                                }
+                                <td>
+                                    @item.Email
+                                </td>
+
+
+                                @if (item.IsActive == true)
+                                {
+                                    <td>
+                                        <img src="@Url.Content("~/Content/images/icons/yes.png")" style="width:15px;height:15px;margin-left:10px;" />
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <img src="@Url.Content("~/Content/images/icons/no.png")" style="width:15px;height:15px;margin-left:10px;" />
+                                    </td>
+                                }
+                                <td>
+
+                                    @if (item.IsActive != true)
+                                    {
+                                        <a class="btn btn-success waves-effect" data-toggle="tooltip" data-placement="top" title="Active" data-original-title="Aktif Yap" href="@Url.Action("ActiveOrPassive", "Team" , new {id=item.Guid })">
+                                            <i class="fa fa-thumbs-o-up"></i>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-danger waves-effect" data-toggle="tooltip" data-placement="top" title="Pasif" data-original-title="Pasif Yap" href="@Url.Action("ActiveOrPassive", "Team" , new {id=item.Guid })">
+                                            <i class="fa fa-thumbs-o-down"></i>
+                                        </a>
+                                    }
+
+                                    <a class="btn btn-gradient-forest" style="color:white" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Düzenle" href="@Url.Action("Edit", "Team", new { id = item.Guid })">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+
+                                    <a class="btn btn-gradient-redmist waves-effect waves-light m-1" href="#" data-target="#deleteFirma" onclick="JavasGonder(@item.Id)" style="color:white" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sil">
+                                        <i class="fa fa fa-trash-o" style="color:white"></i>
+                                    </a>
+
+
+
+                                    <script type="text/javascript">
+                                        function JavasGonder(id) {
+                                            var link = "/Team/Delete/" + id;
+                                            jQuery("#modalLink").attr("href", link);
+                                            jQuery("#deleteFirma").modal()
+                                        }
+                                    </script>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Areas/Admin/Content/assets/plugins/bootstrap-datatable/js/jquery.dataTables.min.js")"></script>
+<script src="@Url.Content("~/Areas/Admin/Content/assets/plugins/bootstrap-datatable/js/dataTables.bootstrap4.min.js")"></script>
+<script src="@Url.Content("~/Areas/Admin/Content/assets/plugins/bootstrap-datatable/js/dataTables.buttons.min.js")"></script>
+<script src="@Url.Content("~/Areas/Admin/Content/assets/plugins/bootstrap-datatable/js/buttons.bootstrap4.min.js")"></script>
+<script type="text/javascript">
+    var jQueryCalis = $.noConflict(true);
+    (function ($) {
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "lengthMenu": [[25, 50, -1], [25, 50, "Tümü"]],
+                "ordering": true,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Turkish.json"
+                }
+            });
+            var table = $('#example').DataTable();
+            $('#example').show();
+        });
+    })(jQueryCalis);
+</script>
+
+<div class="modal fade" id="deleteFirma" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="top: 50px;">
+            <div class="modal-header modal-header-success btn-gradient-redmist" style="color: white !important;text-align: center;
+        font-size: 30px;">
+                <h6 style="color:white"><i class="icon-close"></i> Admin Silme Ekranı </h6>
+            </div>
+            <div class="modal-body">
+                <h6>Bu admini silmek istediğinize emin misiniz?</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="margin-right:10px;" class="btn btn-primary pull-right" data-dismiss="modal"> <i class="fa fa fa-power-off" style="color:white"></i> Kapat</button>
+                <a class="btn btn-danger" id="modalLink">  <i class="fa fa fa-trash-o" style="color:white !important"></i> Sil</a>
+            </div>
+        </div>
+    </div>
+</div>

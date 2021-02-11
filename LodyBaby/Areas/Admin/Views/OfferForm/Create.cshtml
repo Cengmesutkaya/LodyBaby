@@ -1,0 +1,328 @@
+﻿
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<script src="@Url.Content("~/Areas/Admin/Content/assets/js/jquery.min.js")"></script>
+
+<style type="text/css">
+    body {
+        color: #404E67;
+        background: #F5F7FA;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .table-wrapper {
+        width: 700px;
+        margin: 30px auto;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    }
+
+    .table-title {
+        padding-bottom: 10px;
+        margin: 0 0 10px;
+    }
+
+        .table-title h2 {
+            margin: 6px 0 0;
+            font-size: 22px;
+        }
+
+        .table-title .add-new {
+            float: right;
+            height: 30px;
+            font-weight: bold;
+            font-size: 12px;
+            text-shadow: none;
+            min-width: 100px;
+            border-radius: 50px;
+            line-height: 13px;
+        }
+
+            .table-title .add-new i {
+                margin-right: 4px;
+            }
+
+    table.table {
+        table-layout: fixed;
+    }
+
+        table.table tr th, table.table tr td {
+            border-color: #e9e9e9;
+        }
+
+        table.table th i {
+            font-size: 13px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        table.table th:last-child {
+            width: 100px;
+        }
+
+        table.table td a {
+            cursor: pointer;
+            display: inline-block;
+            margin: 0 5px;
+            min-width: 24px;
+        }
+
+            table.table td a.add {
+                color: #27C46B;
+            }
+
+            table.table td a.edit {
+                color: #FFC107;
+            }
+
+            table.table td a.delete {
+                color: #E34724;
+            }
+
+        table.table td i {
+            font-size: 19px;
+        }
+
+        table.table td a.add i {
+            font-size: 24px;
+            margin-right: -1px;
+            position: relative;
+            top: 3px;
+        }
+
+        table.table .form-control {
+            height: 32px;
+            line-height: 32px;
+            box-shadow: none;
+            border-radius: 2px;
+        }
+
+            table.table .form-control.error {
+                border-color: #f50000;
+            }
+
+        table.table td .add {
+            display: none;
+        }
+</style>
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="card">
+        <div class="body">
+            <br /> <br />
+            <h4 class="text-center">Teklif Formu Oluşturma</h4>
+            <br /> <br />
+            <div class="row clearfix" style="margin-left:15px">
+                <div class="col-sm-3">
+                    <label>Firma Adı : </label>
+                    @Html.Editor("companyName", new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @required = "required", @id = "companyName" } })
+
+                </div>
+                <div class="col-sm-3">
+                    <label>Görüşülen Kişi: </label>
+                    @Html.Editor("personName", new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @required = "required", @id = "personName" } })
+
+                </div>
+                <br />
+                <div class="col-sm-3">
+                    <label>Email : </label>
+                    @Html.Editor("Email", new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @required = "required", @id = "personEmail" } })
+                </div>
+                <div class="col-sm-2">
+                    <label>GSM : </label>
+                    @Html.Editor("gsm", new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @required = "required", @id = "gsm" } })
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+        </div>
+        <div class="card">
+            <table class="table table-bordered" id="tableAction">
+                <thead>
+                    <tr>
+                        <th>BOY X EN X YÜKSEKLİK</th>
+                        <th>ÖZELLİK</th>
+                        <th>ADET</th>
+                        <th>BİRİM FİYAT</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="tdboy1"></td>
+                        <td id="tdozellik1"></td>
+                        <td id="tdadet1" onkeypress="return isNumberKey(event)"></td>
+                        <td id="tdfiyat1"></td>
+                        <td>
+                            <a class="add" title="Ekle" data-toggle="tooltip"><i class="icon-magnifier-add"></i></a>
+                            <a class="edit" title="Düzenleme" data-toggle="tooltip"><i class="icon-pencil"></i></a>
+                            @*<a class="delete" title="Sil" data-toggle="tooltip"><i class="icon-trash"></i></a>*@
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+            <br />
+            @*<div class="row clearfix" style="margin-left:15px">
+
+            <div class="col-sm-3">
+                <button class="btn btn-info add-new" style="float:left;">  Yeni Satır Ekle </button>
+            </div>
+            <div class="col-sm-3">
+
+                <br /><br /><br /><br /><br /> <br /><br /><br /><br /><br />
+            </div>
+        </div>*@
+            <br /><br /><br /><br /><br />
+
+            <div class="row clearfix" style="margin-left:15px">
+
+                <div class="col-sm-3">
+                </div>
+                <div class="col-sm-2" style="display:none">
+                    <button class="btn btn-info add-new">Yeni Satır Ekle</button>
+                </div>
+
+                <div class="col-sm-2">
+                    <button class="btn btn-block btn-success" onclick="tdread()">Teklif Formu Oluştur</button>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $(function () {
+            $(".edit").click();
+        });
+        $('[data-toggle="tooltip"]').tooltip();
+        var actions = $("table td:last-child").html();
+        // Append table with add row form on add new button click
+        var inputNumbr = 1;
+        $(".add-new").click(function () {
+            inputNumbr++;
+            $(this).attr("disabled", "disabled");
+            var index = $("table tbody tr:last-child").index();
+            var row = '<tr>' +
+                '<td id="tdboy' + inputNumbr + '"><input type="text" class="form-control"></td>' +
+                '<td id="tdozellik' + inputNumbr + '"><input type="text" class="form-control" ></td>' +
+                '<td id="tdadet' + inputNumbr + '"><input type="text" onkeypress="return isNumberKey(event)" class="form-control"></td>' +
+                '<td id="tdfiyat' + inputNumbr + '"><input type="text" class="form-control" maxlength="100" ></td>' +
+                '<td>' + actions + '</td>' +
+                '</tr>';
+            $("table").append(row);
+            $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        $(document).on("click", ".add", function () {
+            var empty = false;
+            var input = $(this).parents("tr").find('input[type="text"]');         
+            $(this).parents("tr").find(".error").first().focus();
+            if (!empty) {
+                input.each(function () {
+                    $(this).parent("td").html($(this).val());
+                });
+                $(this).parents("tr").find(".add, .edit").toggle();
+                //$(".add-new").removeAttr("disabled");
+                $(".add-new").click()
+            }
+        });
+        // Edit row on edit button click
+        $(document).on("click", ".edit", function () {
+            $(this).parents("tr").find("td:not(:last-child)").each(function () {
+                $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+            });
+            $(this).parents("tr").find(".add, .edit").toggle();
+            $(".add-new").attr("disabled", "disabled");
+        });
+        // Delete row on delete button click
+        $(document).on("click", ".delete", function () {
+            $(this).parents("tr").remove();
+            $(".add-new").removeAttr("disabled");
+        });
+    });
+</script>
+<script type="text/javascript">
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+    function tdread() {
+        var personName = $("#personName").val();
+        var personEmail = $("#personEmail").val();
+        var gsm = $("#gsm").val();
+        var companyName = $("#companyName").val();
+        try {
+            var trNumbr = 0;
+            var boy = [];
+            var ozellik = [];
+            var adet = [];
+            var fiyat = [];
+            $('#tableAction tr').each(function () {
+                if (trNumbr > 0 && $(this).find("#tdboy" + trNumbr).html() != '<input type="text" class="form-control">') {
+                    boy.push($(this).find("#tdboy" + trNumbr).html());
+                    ozellik.push($(this).find("#tdozellik" + trNumbr).html());
+                    adet.push($(this).find("#tdadet" + trNumbr).html());
+                    fiyat.push($(this).find("#tdfiyat" + trNumbr).html());
+                    //alert($(this).find("#tdboy" + trNumbr).html());
+                }
+                trNumbr++;
+            });   
+            var data = new Object();
+            $.ajax({
+                url: "/OfferForm/Complete",
+                data: { personName: personName, personEmail: personEmail, gsm: gsm, companyName: companyName, boy: boy, ozellik: ozellik, adet: adet, fiyat: fiyat },
+                type: "POST",
+                success: function (data) {
+                    if (data == "True") {
+                        window.location.assign("/offerform-list");
+                    } else if (data == "Exist") {
+                        var message = 'Aynı kişi ve aksiyon yılı zaten sistemde kayıtlıdır. Lütfen doğru kişi ve yıl seçtinizden emin olun.';
+                        $('#alertModal').find('.modal-body h4').text(message);
+                        $('#alertModal').modal('show');
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                    var message = 'Lütfen gerekli alanları doldurun.';
+                    $('#alertModal').find('.modal-body h4').text(message);
+                    $('#alertModal').modal('show');
+                }
+            });
+
+        }
+        catch (ex) {
+            var message = 'Bir Programlama hatası oldu.';
+            $('#alertModal').find('.modal-body h4').text(message);
+            $('#alertModal').modal('show');
+        }
+    }
+</script>
+
+<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="top: 50px;">
+            <div class="modal-header modal-header-success text-white btn-danger text-center">
+                <h3  style="float:left;color:white !important"> Hata Mesajı</h3>
+            </div>
+            <div class="modal-body">
+                <h4></h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="margin-right:10px;" class="btn btn-primary pull-right" data-dismiss="modal"><i class="icon-logout"> </i>Tamam</button>
+            </div>
+        </div>
+    </div>
+</div>

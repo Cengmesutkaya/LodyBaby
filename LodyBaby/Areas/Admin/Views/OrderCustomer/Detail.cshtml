@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Package_Ecommerce.DataEntities.Models.OrderDetail>
+
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    double totalPrice = 0;
+}
+
+<h3 class="card-title text-center">Sipariş Detayı</h3>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="btn-dark">
+            <tr>
+                <th scope="col">Ürün Adı</th>
+                <th scope="col">Miktar</th>
+                <th scope="col">Fiyat</th>
+                <th scope="col">Sipariş Tarihi</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>@item.Quantity</td>
+                <td>@item.Price ₺</td>
+                <td hidden="hidden">@(totalPrice += Convert.ToDouble(item.Price) * Convert.ToDouble(item.Quantity))</td>
+                <td>@item.CreateDate</td>
+            </tr>
+            }
+
+                <tr class="btn-dark">
+                    <td>Toplam Ücret +  KDV : @(totalPrice += totalPrice*0.18) ₺</td>
+                </tr>
+        </tbody>
+
+
+    </table>
+</div>

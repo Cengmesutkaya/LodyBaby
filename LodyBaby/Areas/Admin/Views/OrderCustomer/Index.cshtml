@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Package_Ecommerce.DataEntities.Models.Order>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<script src="@Url.Content("~/Areas/Admin/Content/assets/js/jquery.min.js")"></script>
+<link href="@Url.Content("~/Areas/Admin/Content/assets/plugins/bootstrap-datatable/css/dataTables.bootstrap4.min.css")" rel="stylesheet" />
+
+<div class="col-12 col-lg-12 col-xl-12">
+    <div class="row mt-4">
+        <div class="col-12 col-lg-6 col-xl-6">
+            <div class="card bg-dark">
+                <div class="card-body">
+                    <div class="media">
+                        <a>
+                            <div class="media-body text-left">
+                                <h4 class="text-white">
+                                    DİKKAT? ÖDEME KONTROLÜ
+                                </h4>
+                                <span class="text-white">Burada'ki ödemeler iyzicodan doğrulanmadan işlenme alınmayacaktır.</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-6 col-xl-6">
+            <div class="card bg-dark">
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body text-left">
+                            <h4 class="text-white">
+                                @if (Model != null)
+                                {
+                                    @Model.Count()
+                                }
+                            </h4>
+                            <span class="text-white"> Tüm Siparişlerin Sayısı</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--End Row-->
+
+    <div class="card">
+        <br />
+        <div class="body">
+            <div class="table-responsive">
+                <table id="example" class="table table-bordered" cellspacing="0" style="width:100%;">
+                    <thead>
+                        <tr class="btn-dark">
+                            <th>Üye No</th>
+                            <th>Üye Adı-Soyadı</th>
+                            <th>Toplam Tahsilat</th>
+                            <th>Sipariş Tarihi</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.MemberId
+                                </td>
+                                <td>
+                                    @item.Createby
+                                </td>
+                                <td>
+                                    @item.TotalPrice
+                                </td>
+                                <td>
+                                    @item.CreateDate
+                                </td>
+                                <td>
+                                    <a class="btn btn-gradient-forest" style="color:white" data-toggle="tooltip" data-placement="top" title="Detay" data-original-title="Detay" href="@Url.Action("Detail", "OrderCustomer", new { id = item.Id })">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Areas/Admin/Content/assets/plugins/bootstrap-datatable/js/jquery.dataTables.min.js")"></script>
+<script src="@Url.Content("~/Areas/Admin/Content/assets/plugins/bootstrap-datatable/js/dataTables.bootstrap4.min.js")"></script>
+<script src="@Url.Content("~/Areas/Admin/Content/assets/plugins/bootstrap-datatable/js/dataTables.buttons.min.js")"></script>
+<script src="@Url.Content("~/Areas/Admin/Content/assets/plugins/bootstrap-datatable/js/buttons.bootstrap4.min.js")"></script>
+<script type="text/javascript">
+    var jQueryCalis = $.noConflict(true);
+    (function ($) {
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "lengthMenu": [[25, 50, -1], [25, 50, "Tümü"]],
+                "ordering": true,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Turkish.json"
+                }
+            });
+            var table = $('#example').DataTable();
+            $('#example').show();
+        });
+    })(jQueryCalis);
+</script>
+

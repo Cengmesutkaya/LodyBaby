@@ -1,0 +1,161 @@
+using SR_Console.Properties;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading;
+namespace SR_Console
+{
+    class Program
+    {
+        
+        public static db con = new db();
+        public static bool AktifZaman()
+        {
+
+            TimeSpan bas_zaman = Settings.Default.StartTime;
+            TimeSpan bit_zaman = Settings.Default.EndTime;
+
+            int ZamanDegeri = DateTime.Now.Hour * 24 * 60 + DateTime.Now.Minute * 60 + DateTime.Now.Second;
+            int BaslamaSaati = bas_zaman.Hours * 24 * 60 + bas_zaman.Minutes * 60 + bas_zaman.Seconds;
+            int BitisSaati = bit_zaman.Hours * 24 * 60 + bit_zaman.Minutes * 60 + bit_zaman.Seconds;
+            if (ZamanDegeri > BaslamaSaati && ZamanDegeri < BitisSaati)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+
+        static public void Tick(Object stateInfo)
+        {
+            Console.WriteLine("Tick: {0}", DateTime.Now.ToString("h:mm:ss"));
+        }
+
+        static void Main(string[] args)
+        {
+            
+            TimerCallback callback = new TimerCallback(Tick);
+
+            Console.WriteLine("Timer yaratiliyor: {0}\n",
+                               DateTime.Now.ToString("h:mm:ss"));
+
+            // 5 saniyede bir çalışacak
+            Timer stateTimer = new Timer(callback, null, 0, 1000 * 30);
+
+            //timer1.Elapsed += new ElapsedEventHandler(Timer1_Elapsed);
+            Timer1_Elapsed();
+        }
+        public static void Timer1_Elapsed()//object sender, EventArgs e
+        {
+
+                Console.WriteLine("Kontrol İşlemi Başlıyor!");
+                
+                //CLCARD Tablosu kontrol ediliyor
+                con.baglanti_ac();
+                Console.WriteLine("Veritabanı bağlantısı yapıldı!");
+                DateTime ref_tarih = Settings.Default.UpdateTime;
+                SqlCommand cmds = new SqlCommand("SELECT * FROM SR_LASTUPDATE WHERE TABLENAME='SR_INVOICE'", con.con_dest);
+                SqlDataReader drs = cmds.ExecuteReader();
+                while (drs.Read())
+                {
+                    ref_tarih = DateTime.Parse( drs["LASTTIME"].ToString());
+                }
+                string SQL_Source = "SET DATEFORMAT DMY SELECT INV.BRANCH,INV.CANCELLED,INV.LOGICALREF,INV.FICHENO,INV.DATE_,INV.NETTOTAL, CC.LOGICALREF AS CLIENTREF,CC.CODE AS CLCODE,CC.DEFINITION_ AS CLNAME,ISNULL(SH.NAME,'MERKEZ' ) AS SHNAME,ISNULL(SH.LOGICALREF,0) AS SHIPREF,ISNULL(SH.LATITUTE,CC.LATITUTE) AS LAT,ISNULL(SH.LONGITUDE,CC.LONGITUDE) AS LON,ISNULL(SH.CITY,CC.CITY) AS CITY,ISNULL(SH.TOWN,CC.TOWN) AS TOWN, ISNULL(SH.ADDR1,CC.ADDR1) AS ADDR1,ISNULL(SH.ADDR2,CC.ADDR2) AS ADDR2,(SELECT SUM(STL.AMOUNT*STL.UINFO2/(CASE ITU.CONVFACT2 WHEN 0 THEN 1 ELSE ITU.CONVFACT2 END)) FROM LG_113_04_STLINE STL INNER JOIN LG_113_ITMUNITA ITU ON ITU.ITEMREF=STL.STOCKREF INNER JOIN LG_113_UNITSETL USL ON USL.LOGICALREF=ITU.UNITLINEREF WHERE USL.CODE IN ('KOLI','KOLİ','KL') AND STL.INVOICEREF=INV.LOGICALREF) AS KOLI,(SELECT SUM(STL.AMOUNT*STL.UINFO2*ITU.GROSSVOLUME) FROM LG_113_04_STLINE STL INNER JOIN LG_113_ITMUNITA ITU ON ITU.ITEMREF=STL.STOCKREF WHERE ITU.LINENR=1 AND STL.INVOICEREF=INV.LOGICALREF) AS HACIM,(SELECT SUM(STL.AMOUNT*STL.UINFO2*ITU.GROSSWEIGHT) FROM LG_113_04_STLINE STL INNER JOIN LG_113_ITMUNITA ITU ON ITU.ITEMREF=STL.STOCKREF WHERE ITU.LINENR=1 AND STL.INVOICEREF=INV.LOGICALREF) AS AGIRLIK FROM LG_113_04_INVOICE INV INNER JOIN LG_113_CLCARD CC ON CC.LOGICALREF = (CASE INV.RECVREF WHEN 0 THEN INV.CLIENTREF ELSE INV.RECVREF END) LEFT JOIN LG_113_SHIPINFO SH ON SH.LOGICALREF =INV.SHIPINFOREF WHERE INV.TRCODE =8 AND (INV.CAPIBLOCK_CREADEDDATE>='" + ref_tarih + "' OR INV.CAPIBLOCK_MODIFIEDDATE>='" + ref_tarih + "')";
+                SqlCommand cmd_s = new SqlCommand(SQL_Source, con.con_source);
+                SqlDataReader dr = cmd_s.ExecuteReader();
+                while (dr.Read())
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter("SET DATEFORMAT DMY SELECT * FROM SR_INVOICE WHERE FIRMNR=113 AND DONEMNR=4 and FICHENO!='NULL' AND FICHENO = '" + dr["FICHENO"].ToString() + "'", con.con_dest);
+                    DataSet dataset = new DataSet();
+                    adapter.Fill(dataset);
+                    if (dataset.Tables[0].Rows.Count == 0)
+                    {
+                        //Kayıt Ekle
+                        Console.WriteLine(dr["FICHENO"].ToString() + " numaralı fatura ekleniyor!");
+                        var newrow = dataset.Tables[0].NewRow();
+                        newrow["INVOICEREF"] = dr["LOGICALREF"];
+                        newrow["DATE_"] = dr["DATE_"];
+                        newrow["FICHENO"] = dr["FICHENO"];
+                        newrow["NETTOTAL"] = dr["NETTOTAL"].ToString();
+                        newrow["CLIENTREF"] = dr["CLIENTREF"];
+                        newrow["CLCODE"] = dr["CLCODE"];
+                        newrow["CLNAME"] = dr["CLNAME"];
+                        newrow["SHNAME"] = dr["SHNAME"];
+                        newrow["LAT"] = dr["LAT"];
+                        newrow["LON"] = dr["LON"];
+                        newrow["CITY"] = dr["CITY"];
+                        newrow["TOWN"] = dr["TOWN"];
+                        newrow["ADDR1"] = dr["ADDR1"];
+                        newrow["ADDR2"] = dr["ADDR2"];
+                        newrow["KOLI"] = dr["KOLI"];
+                        newrow["HACIM"] = dr["HACIM"];
+                        newrow["AGIRLIK"] = dr["AGIRLIK"];
+                        newrow["CANCELLED"] = dr["CANCELLED"];
+                        newrow["BRANCH"] = dr["BRANCH"];
+                        newrow["SHIPREF"] = dr["SHIPREF"];
+                        newrow["FIRMNR"] = "113";
+                        newrow["DONEMNR"] = "04";
+                        dataset.Tables[0].Rows.Add(newrow);
+                        Console.WriteLine(dr["FICHENO"].ToString() + " numaralı fatura eklendi!");
+                    }
+                    else
+                    {
+                        //Kayıt Güncelle
+                        Console.WriteLine(dr["FICHENO"].ToString() + " numaralı fatura güncelleniyor!");
+                        var row = dataset.Tables[0].Rows[0];
+
+                        row["DATE_"] = dr["DATE_"];
+                        row["FICHENO"] = dr["FICHENO"];
+                        row["NETTOTAL"] = dr["NETTOTAL"].ToString();
+                        row["CLIENTREF"] = dr["CLIENTREF"];
+                        row["CLCODE"] = dr["CLCODE"];
+                        row["CLNAME"] = dr["CLNAME"];
+                        row["SHNAME"] = dr["SHNAME"];
+                        row["LAT"] = dr["LAT"];
+                        row["LON"] = dr["LON"];
+                        row["CITY"] = dr["CITY"];
+                        row["TOWN"] = dr["TOWN"];
+                        row["ADDR1"] = dr["ADDR1"];
+                        row["ADDR2"] = dr["ADDR2"];
+                        row["KOLI"] = dr["KOLI"];
+                        row["HACIM"] = dr["HACIM"];
+                        row["AGIRLIK"] = dr["AGIRLIK"];
+                        row["CANCELLED"] = dr["CANCELLED"];
+                        row["BRANCH"] = dr["BRANCH"];
+                        row["SHIPREF"] = dr["SHIPREF"];
+                        row["FIRMNR"] = "113";
+                        row["DONEMNR"] = "04";
+                        Console.WriteLine(dr["FICHENO"].ToString() + " numaralı fatura güncellendi!");
+                    }
+                    new SqlCommandBuilder(adapter);
+                    adapter.Update(dataset);
+
+                }
+                Settings.Default.UpdateTime = DateTime.Now;
+                Settings.Default.Save();
+                SqlDataAdapter adapterk = new SqlDataAdapter("SET DATEFORMAT DMY SELECT * FROM SR_LASTUPDATE WHERE TABLENAME='SR_INVOICE'", con.con_dest);
+                DataSet datasetk = new DataSet();
+                adapterk.Fill(datasetk);
+                if (datasetk.Tables[0].Rows.Count == 1)
+                {
+                    var row = datasetk.Tables[0].Rows[0];
+                    row["LASTTIME"] = DateTime.Now;
+
+                }
+                new SqlCommandBuilder(adapterk);
+                adapterk.Update(datasetk);
+
+                Console.WriteLine("Son güncelleme zamanı kaydedildi!");
+                //
+            
+        }
+        
+    }
+}

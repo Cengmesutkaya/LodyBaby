@@ -1,0 +1,86 @@
+﻿@model Package_Ecommerce.DataEntities.Models.Email
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                @using (Html.BeginForm())
+                {
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="basic-input" class="col-sm-4 col-form-label">Smtp Client</label>
+                            <div class="col-sm-10">
+                                @Html.EditorFor(model => model.SmtpClient, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @required = "required" } })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="basic-input" class="col-sm-4 col-form-label">Host</label>
+                            <div class="col-sm-10">
+                                @Html.EditorFor(model => model.Host, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @required = "required" } })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="basic-input" class="col-sm-4 col-form-label">Smtp Port</label>
+                            <div class="col-sm-10">
+                                @Html.EditorFor(model => model.Port, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @type = "number", @required = "required" } })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="basic-input" class="col-sm-4 col-form-label">Password</label>
+                            <div class="col-sm-10">
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @required = "required" } })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="basic-input" class="col-sm-4 col-form-label"> CC Ekle</label>
+                            <div class="col-sm-10">
+                                @Html.EditorFor(model => model.CCEmailOne, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @required = "required" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="basic-input" class="col-sm-4 col-form-label">CC Ekle</label>
+                            <div class="col-sm-10">
+                                @Html.EditorFor(model => model.CCEmailTwo, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @required = "required" } })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="basic-input" class="col-sm-4 col-form-label">CC Ekle</label>
+                            <div class="col-sm-10">
+                                @Html.EditorFor(model => model.CCEmailThree, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @required = "required" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="basic-input" class="col-sm-4 col-form-label">SSL Aktif?</label>
+                            @if (Model.EnableSsl == true)
+                            {
+                                <div class="col-sm-10">
+                                    <div class="icheck-material-primary">
+                                        <input type="checkbox" id="checkbox" name="checkbox" checked="checked">
+                                        <label for="checkbox"></label>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-sm-9">
+                                    <div class="icheck-material-primary">
+                                        <input type="checkbox" id="checkbox" name="checkbox">
+                                        <label for="checkbox"></label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="form-footer">
+                            <button type="submit" class="btn btn-success"><i class="fa fa-check-square-o"></i> Değişiklikleri Kaydet</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

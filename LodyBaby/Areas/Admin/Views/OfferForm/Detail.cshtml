@@ -1,0 +1,103 @@
+﻿@model Package_Ecommerce.Areas.Admin.Models.FormModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .modal-header {
+        background-color: #4fbbd9;
+        color: white !important;
+        text-align: center;
+    }
+
+    .modal-body {
+        background-color: white;
+        color: black !important;
+    }
+</style>
+
+@if (Model != null)
+{
+    <div>
+        <div class="modal-body">
+            <div>
+                <div class="modal-header" style="margin-top:0px">
+                    <h4 class="modal-title" id="myModal-label">
+                        <span class="text-center text-white">Teklif Formu İçeriği</span>
+                    </h4>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Firma Adı</th>
+                            <th>Ad/Soyad</th>
+                            <th>Email</th>
+                            <th>Gsm</th>
+                            <th>Ekleyen</th>
+                            <th>Eklenme T.</th>
+                        </tr>
+                    </thead>
+                    <thead>
+                        <tr>
+                            <td>@Model.companyName</td>
+                            <td>@Model.personName</td>
+                            <td>@Model.personEmail</td>
+                            <td>@Model.gsm</td>
+                            <td>@Model.addedBy</td>
+                            <td>@Model.addedDate</td>
+                        </tr>
+                    </thead>
+                </table>
+                <table class="table table-bordered" id="tableAction">
+                    <thead>
+                        <tr>
+                            <th>Boy X En X Yükseklik</th>
+                            <th>Özellik</th>
+                            <th>Adet</th>
+                            <th>Fiyat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.boy.Count(); i++)
+                        {
+                            <tr>
+                                <td>@Model.boy[i]</td>
+                                <td>@Model.ozellik[i]</td>
+                                <td>@Model.adet[i]</td>
+                                <td>@Model.fiyat[i]</td>
+                            </tr>
+
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+}
+else
+{
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="body bg-pink">
+                <div class="font-bold m-b--70">Herhangi bir kayıt bulunamadı.</div>
+                <ul class="dashboard-stat-list" id="parent">
+                    <li>
+                        <a href="#" style="color:#fff">
+                        </a>
+                        <ul class="child"></ul>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+}
+
+<br />
+<br />
+<br />
+

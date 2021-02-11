@@ -1,0 +1,136 @@
+﻿@model IEnumerable<Package_Ecommerce.DataEntities.Models.Category>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="col-12 col-lg-12 col-xl-12">
+    <div class="row mt-4">
+        <div class="col-12 col-lg-6 col-xl-3">
+            <div class="card bg-dark">
+                <div class="card-body">
+                    <div class="media">
+                        <a href="/category-create">
+                            <div class="media-body text-left">
+                                <h4 class="text-white">
+                                    Kategori Ekle
+                                </h4>
+                                <span class="text-white">Kategori Eklemek İçin Tıklayın...</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-3">
+            <div class="card bg-dark">
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body text-left">
+                            <h4 class="text-white">
+                                @if (Model != null)
+                                {
+                                    @Model.Count()
+
+                                }
+                            </h4>
+                            <span class="text-white">Tüm Kategorilerin Sayısı </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-3">
+            <div class="card bg-dark">
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body text-left">
+                            <h4 class="text-white">
+                                @if (Model != null)
+                                {
+                                    @Model.Where(m => m.IsVitrin == true).Count()
+
+                                }
+                            </h4>
+                            <span class="text-white"> Vitrin Kategori Sayısı</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-3">
+            <div class="card bg-dark">
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body text-left">
+                            <h4 class="text-white">
+                                @if (Model != null)
+                                {
+                                    @Model.Where(m => m.IsVitrin != true).Count()
+
+                                }
+                            </h4>
+                            <span class="text-white"> Vitrin Olmayan Kategori Sayısı</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--End Row-->
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <table class="table">
+                        <tr>
+                            <th>
+                                Kategori Adı
+                            </th>
+                            <th>
+                                Etiketler
+                            </th>
+                            <th>
+                                Vitrin mi?
+                            </th>
+                            <th>
+                                İşlemler
+                            </th>
+                            <th></th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Tags)
+                                </td>
+                                @if (item.IsVitrin == true)
+                                {
+                                    <td>
+                                        <img src="@Url.Content("~/Content/images/icons/yes.png")" style="width:15px;height:15px;margin-left:10px;" />
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <img src="@Url.Content("~/Content/images/icons/no.png")" style="width:15px;height:15px;margin-left:10px;" />
+                                    </td>
+                                }
+                                <td>
+                                    <a class="btn btn-warning waves-effect waves-light m-1" href="@Url.Action("Edit", "Category", new { id = item.Id })"><i class="icon-note icons"></i></a>
+
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div><!--End Row-->
+        </div>
+    </div>
+</div>
+
+
+
+
+

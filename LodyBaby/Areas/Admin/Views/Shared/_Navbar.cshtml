@@ -1,0 +1,151 @@
+﻿<div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
+    <div class="brand-logo">
+        <img src="@Url.Content("~/Areas/Admin/Content/assets/images/logo-icon.png")" class="logo-icon" alt="logo icon">
+        <h5 class="logo-text"> Hamal</h5>
+    </div>
+    <div class="user-details">
+        <div class="media align-items-center user-pointer collapsed" data-toggle="collapse" data-target="#user-dropdown">
+            <div class="avatar">
+                <img class="mr-3 side-user-img" src="@Session["AdminImage"]" alt="user avatar">
+            </div>
+            <div class="media-body">
+                <h6 class="side-user-name">@Session["AdminName"]</h6>
+            </div>
+        </div>
+        <div id="user-dropdown" class="collapse">
+            <ul class="user-setting-menu">
+                <li><a href="/user-profile"><i class="icon-user"></i> Profilim</a></li>
+                <li>
+                    <a href="javaScript:void();">
+                        <i class="icon-settings"></i> Ayarlar
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("LogOut","Login")">
+                        <i class="icon-power"></i> Çıkış Yap
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <ul class="sidebar-menu do-nicescrol">
+        <li class="sidebar-header">E-Ticaret Panel Yönetimi</li>
+        <li><a href="/" target="_blank"><i class="icon-home"></i> Site Aç & ön İzle</a></li>
+        <li><a href="#"><i class="icon-user"></i> Profilim</a></li>
+        <li>
+            <a href="#" class="waves-effect">
+                <i class="icon-note icons">
+                </i><span> Ürün İşlemleri</span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="sidebar-submenu">
+                <li>
+                    <a href="/product-list">
+                        <i class="fa fa-long-arrow-right"></i> Ürün Listesi
+                    </a>
+                </li>
+                <li>
+                    <a href="/product-create">
+                        <i class="fa fa-long-arrow-right"></i> Ürün Ekle
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="waves-effect">
+                <i class="icon-people">
+                </i><span> Müşteri İşlemleri</span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="sidebar-submenu">
+                <li>
+                    <a href="/member-list">
+                        <i class="fa fa-long-arrow-right"></i> Müşteri Listesi
+                    </a>
+                </li>
+                <li>
+                    <a href="/member-create">
+                        <i class="fa fa-long-arrow-right"></i> Müşteri Ekle
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="/category-list" class="waves-effect">
+                <i class="icon-grid"></i><span> Kategoriler</span>
+            </a>
+        </li>
+     
+        <li>
+            <a href="/ordercustomer-list" class="waves-effect">
+                <i class="icon-basket"></i><span> Sipariş & Ödeme</span>
+            </a>
+        </li>
+        @*<li>
+            <a href="#" class="waves-effect">
+                <i class="icon-map"></i><span>Ödemeler</span>
+            </a>
+        </li>*@
+        @*<li>
+            <a href="#" class="waves-effect">
+                <i class="icon-bell"></i><span>Bildirimler</span>
+            </a>
+        </li>*@
+        <li>
+            <a href="#" class="waves-effect">
+                <i class="icon-people">
+                </i><span>Adminler</span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="sidebar-submenu">
+                <li>
+                    <a href="/team-list">
+                        <i class="fa fa-long-arrow-right"></i> Admin Listesi
+                    </a>
+                </li>
+                <li>
+                    <a href="/team-create">
+                        <i class="fa fa-long-arrow-right"></i> Admin Ekle
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+
+        @*<li>
+            <a href="#" class="waves-effect">
+                <i class="icon-folder">
+                </i><span>Formlar</span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="sidebar-submenu">
+                <li>
+                    <a href="/offerform-list">
+                        <i class="fa fa-long-arrow-right"></i> Teklif Formu Listesi
+                    </a>
+                </li>
+                <li>
+                    <a href="/offerform-create">
+                        <i class="fa fa-long-arrow-right"></i> Teklif Formu Ekle
+                    </a>
+                </li>
+
+            </ul>
+        </li>*@
+
+
+        @*<li>
+            <a href="/email-list" class="waves-effect">
+                <i class="icon-envelope"></i><span>EMail Ayarları</span>
+            </a>
+        </li>
+        <li>
+            <a href="/email-list" class="waves-effect">
+                <i class="icon-envelope"></i><span>Sms Gönder</span>
+            </a>
+        </li>*@
+        <li><a href="@Url.Action("LogOut","Login")" class="waves-effect"><i class="icon-power text-danger"></i><span>Güvenli Çıkış</span></a></li>
+    </ul>
+</div>
+
