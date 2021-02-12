@@ -1,5 +1,5 @@
-﻿using Package_Ecommerce.Areas.Admin.Utils;
-using Package_Ecommerce.DataEntities.Models;
+﻿using Areas.Admin.Utils;
+using DataEntities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Package_Ecommerce.Areas.Admin.Controllers
+namespace Areas.Admin.Controllers
 {
     public class EmailSettingController : BaseAdminController
     {

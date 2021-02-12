@@ -1,9 +1,6 @@
-﻿using iTextSharp.text;
-using iTextSharp.text.html.simpleparser;
-using iTextSharp.text.pdf;
-using Package_Ecommerce.Areas.Admin.Models;
-using Package_Ecommerce.Areas.Admin.Utils;
-using Package_Ecommerce.DataEntities.Models;
+﻿
+using Areas.Admin.Utils;
+using DataEntities.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,7 +13,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 
-namespace Package_Ecommerce.Areas.Admin.Controllers
+namespace Areas.Admin.Controllers
 {
     public class OfferFormController : BaseAdminController
     {
@@ -28,23 +25,7 @@ namespace Package_Ecommerce.Areas.Admin.Controllers
 
         public ActionResult SendEmail(string Id)
         {
-            FormModel form = (from actionplan in manager.repo_offer.List().AsEnumerable()
-                              where (actionplan.Guid == Id)
-                              select new FormModel
-                              {
-                                  Id = actionplan.Id,
-                                  boy = actionplan.Height.Split('®'),
-                                  ozellik = actionplan.Property.Split('®'),
-                                  adet = actionplan.Number.Split('®'),
-                                  fiyat = actionplan.Price.Split('®'),
-                                  addedBy = actionplan.Createby,
-                                  addedDate = actionplan.CreateDate.ToShortDateString(),
-                                  companyName = actionplan.CompanyName,
-                                  personEmail = actionplan.Email,
-                                  gsm = actionplan.Gsm,
-                                  personName = actionplan.PersonName
-                              }).FirstOrDefault();
-            SendPDFEmail(form);
+        
             return Redirect("/offerform-list");
         }
 
@@ -64,22 +45,8 @@ namespace Package_Ecommerce.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            FormModel form = (from actionplan in manager.repo_offer.List().AsEnumerable()
-                              where (actionplan.Guid == Id)
-                              select new FormModel
-                              {
-                                  boy = actionplan.Height.Split('®'),
-                                  ozellik = actionplan.Property.Split('®'),
-                                  adet = actionplan.Number.Split('®'),
-                                  fiyat = actionplan.Price.Split('®'),
-                                  addedBy = actionplan.Createby,
-                                  addedDate = actionplan.CreateDate.ToShortDateString(),
-                                  companyName = actionplan.CompanyName,
-                                  personEmail = actionplan.Email,
-                                  gsm = actionplan.Gsm,
-                                  personName = actionplan.PersonName
-                              }).FirstOrDefault();
-            return View(form);
+         
+            return View();
 
         }
 

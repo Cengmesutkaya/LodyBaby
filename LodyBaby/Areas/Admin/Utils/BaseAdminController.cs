@@ -1,11 +1,11 @@
-﻿using Package_Ecommerce.BussinessLayer;
+﻿using BussinessLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Package_Ecommerce.Areas.Admin.Utils
+namespace Areas.Admin.Utils
 {
     public class BaseAdminController : Controller
     {

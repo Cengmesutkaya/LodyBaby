@@ -150,7 +150,6 @@
     <Compile Include="Areas\Admin\Controllers\OrderCustomerController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamController.cs" />
-    <Compile Include="Areas\Admin\Controllers\WorkOrderController.cs" />
     <Compile Include="Areas\Admin\Models\ArticleModel.cs" />
     <Compile Include="Areas\Admin\Models\FormModel.cs" />
     <Compile Include="Areas\Admin\Utils\BaseAdminController.cs" />
@@ -875,6 +874,16 @@
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="Views\HumanResources\Index.cshtml" />
     <Content Include="Views\Blog\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BussinessLayer\BussinessLayer.csproj">
+      <Project>{3f020cc3-633b-4675-96f4-e27db452987a}</Project>
+      <Name>BussinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEntities\DataEntities.csproj">
+      <Project>{5411efd2-9088-437c-9dcd-5684b15dd1f8}</Project>
+      <Name>DataEntities</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

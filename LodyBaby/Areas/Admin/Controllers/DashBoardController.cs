@@ -1,4 +1,4 @@
-﻿using Package_Ecommerce.Areas.Admin.Utils;
+﻿using Areas.Admin.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;

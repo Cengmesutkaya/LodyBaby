@@ -1,5 +1,6 @@
-﻿using Package_Ecommerce.Areas.Admin.Utils;
-using Package_Ecommerce.DataEntities.Models;
+﻿using Areas.Admin.Utils;
+using DataEntities.Models;
+using Package_Ecommerce.Areas.Admin.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;

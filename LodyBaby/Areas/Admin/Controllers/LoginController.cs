@@ -1,5 +1,5 @@
-﻿using Package_Ecommerce.Areas.Admin.Utils;
-using Package_Ecommerce.BussinessLayer;
+﻿using Areas.Admin.Utils;
+using BussinessLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
